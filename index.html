@@ -4,43 +4,38 @@
 	<title>Assignment 10: API Fun!</title>
 	<meta charset="utf-8"/>
 	<link rel="stylesheet" href="style.css">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Cairo&display=swap" rel="stylesheet">
 
-	<script type="javascript">
-
+	<script type="text/javascript">
 		function getMyData()
 		{
-			console.log("hello");
 			//Step 1: request object made - print step credited to get-weather-ajax
-			request = new XMLHTTPRequest();
+			request = new XMLHttpRequest();
 			console.log("Step 1 - request object created");
 
 			//Step 1: opened request file - print step credited to get-weather-ajax
-			request.open("GET", "https://www.metaweather.com/api/location/839722/", true);
+			// request.open("GET", "https://www.metaweather.com/api/location/839722/", true);
+			request.open("GET", "https://goweather.herokuapp.com/weather/Sofia", true);
 			console.log("Step 2 - opened request file");
 
 			request.onreadystatechange = function(){
 				console.log("Step 3 - readystatechange event fired.");
 				if (request.readyState == 4 && request.status == 200) {
 					// Step 5: wait for done + success - print step credited to get-weather-ajax
-					console.log("5 - response received");
+					console.log("Step 5 - response received");
 
 					//store the result
 					var result = request.responseText;
 					weather_info = JSON.parse(result);
-					info = weather_info['consolidated_weather'];
+					weather_today = weather_info['temperature'];
+					description_today = weather_info['description'];
+					wind_today = weather_info['wind'];
 
-					wea_state = info[0]["weather_state_name"];
-					wea_curr_temp = info[0]["the_temp"];
-					wea_max_temp = info[0]["max_temp"];
-					wea_min_temp = info[0]["min_temp"];
-					wea_humidity = info[0]["humidity"];
-
-					document.getElementById("state").innerHTML = "Weather State: " + wea_state;
-					document.getElementById("curr_temp").innerHTML = "Current Temperature (Cº): " + wea_curr_temp;
-					document.getElementById("max_temp").innerHTML = "High Temp. Today (Cº): " + wea_max_temp;
-					document.getElementById("min_temp").innerHTML = "Low Temp. Today (Cº): " + wea_min_temp;
-					document.getElementById("humidity").innerHTML = "Humidity: " + wea_humidity;
-
+					document.getElementById("curr_temp").innerHTML = "Current Temperature (Cº): " + weather_today;
+					document.getElementById("state").innerHTML = "Weather State: " + description_today;
+					document.getElementById("wind").innerHTML = "High Temp. Today (Cº): " + wind_today;
 
 				}
 				else if (request.readyState == 4 && request.status != 200) {
@@ -51,7 +46,7 @@
 
 			// Step 4: fire off the HTTP request - print step credited to get-weather-ajax
 			request.send();
-			console.log("4 - Request sent");
+			console.log("Step 4 - Request sent");
 
 		}
 	</script>
@@ -63,27 +58,27 @@
 	<h1 align="center">Today in Sofia, Bulgaria</h1>
 
 	<div class="weather">
-		<div id="state"></div>
 		<div id="curr_temp"></div>
-		<div id="max_temp"></div>
-		<div id="min_temp"></div>
-		<div id="humidity"></div>
+		<div id="state"></div>
+		<div id="wind"></div>
 	</div>
 
+	<img src="Sofia.jpeg" alt="sofia" width="500" height="300">
+
 	<div class="questions">
-		<h1>Questions</h1>
+		<h2>Questions</h2>
 
-		<h2>1. Describe the API you selected and what it does. </h2>
-		<p> The API I used ...</p>
+		<h3>1. Describe the API you selected and what it does. </h3>
+		<p> The API I used is a weather API that let's you access the temperature, weather state, and wind of the weather for the day.</p>
 
-		<h2>2. Cite the website where you found it.</h2>
-		<p> I found the API on this <a href="https://github.com/public-apis/public-apis#weather">website</a> </p>
+		<h3>2. Cite the website where you found it.</h3>
+		<p> I found the API on this <a href="https://github.com/public-apis/public-apis#weather">website</a>. It is the <a href="https://goweather.herokuapp.com/weather/Sofia">go weather herokuapp API.</a> </p>
 
-		<h2>3. Describe the options you used for the API request</h2>
-		<p> The options I used for the API request </p>
+		<h3>3. Describe the options you used for the API request</h3>
+		<p> I used the get() option to gain access to the weather's data for Sofia, Bulgaria. I only accessed data from the array. </p>
 
-		<h2>4. Give two applications where this API would be helpful.</h2>
-		<p> Two applications where this API would be helpful...</p>
+		<h3>4. Give two applications where this API would be helpful.</h3>
+		<p> Two applications where this API would be helpful would be for an outfit app, where a user might need access to the temperature in order to pick out an outift, and a trip planning app, where a user might need the weather to decide their plans for the day.</p>
 	</div>
 
 
